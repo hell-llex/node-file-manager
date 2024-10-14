@@ -16,7 +16,7 @@ export const onCd = async (data) => {
     : resolve(process.cwd(), dirPath);
 
   try {
-    const isStat = await lstat(targetPath); // TODO: swat to lstat
+    const isStat = await lstat(targetPath);
     if (isStat.isDirectory()) {
       process.chdir(targetPath);
     } else {
