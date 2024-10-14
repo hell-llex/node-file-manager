@@ -2,6 +2,7 @@ import { onUp, onCd, onLs } from './nwd.js';
 import { rl, printCurrentDirectory } from './config.js';
 import { onCat, onAdd, onRn, onCp, onMv, onRm } from './operations.js';
 import { onOsInfo } from './os-info.js';
+import { onHash } from './hash.js';
 
 export const initCLI = () => {
 
@@ -38,6 +39,8 @@ export const initCLI = () => {
       await onRm(data);
     } else if (data.startsWith('os ')) {
       await onOsInfo(data);
+    } else if (data.startsWith('hash ')) {
+      await onHash(data);
     }
     else {
       console.error('Invalid input\n');
