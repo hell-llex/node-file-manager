@@ -1,0 +1,6 @@
+file number zero
+
+Hello world!!!
+This file is part of the project.
+
+==================================
