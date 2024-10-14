@@ -1,5 +1,5 @@
 import { dirname, isAbsolute, resolve, join } from 'path';
-import { stat, readdir } from 'fs/promises';
+import { stat, readdir, lstat } from 'fs/promises';
 import { printCurrentDirectory, rootDirectory } from './config.js';
 
 export const onUp = () => {
@@ -16,7 +16,7 @@ export const onCd = async (data) => {
     : resolve(process.cwd(), dirPath);
 
   try {
-    const isStat = await stat(targetPath); // TODO: swat to lstat
+    const isStat = await lstat(targetPath); // TODO: swat to lstat
     if (isStat.isDirectory()) {
       process.chdir(targetPath);
     } else {
@@ -35,7 +35,7 @@ export const onLs = async () => {
     const fileArray = await readdir(process.cwd());
     const fileInfoArray = await Promise.all(
       fileArray.map(async (file) => {
-        const stats = await stat(join(process.cwd(), file));
+        const stats = await lstat(join(process.cwd(), file));
         return {
           name: file,
           type: stats.isDirectory() ? 'directory' : 'file'
