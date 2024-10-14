@@ -1,18 +1,14 @@
 import { onUp, onCd, onLs } from './nwd.js';
-import { rl, printCurrentDirectory } from './config.js';
+import { greetings } from './greetings.js';
+import { rl, username } from './config.js';
 import { onCat, onAdd, onRn, onCp, onMv, onRm } from './operations.js';
 import { onOsInfo } from './os-info.js';
 import { onHash } from './hash.js';
 import { onCompress, onDecompress } from './zip.js';
 
-export const initCLI = () => {
+export const initCLI = async () => {
 
-  const args = process.argv.slice(2);
-  const usernameArg = args.find((arg) => arg.startsWith('--username='));
-  const username = usernameArg ? usernameArg.split('=')[1] : 'User';
-
-  console.log(`Welcome to the File Manager, ${username}!\n`);
-  printCurrentDirectory();
+  await greetings();
 
   rl.on("line", async (input) => {
     const data = input.trim();
@@ -54,6 +50,6 @@ export const initCLI = () => {
 
   rl.on("close", () => {
     console.log(`\n\nThank you for using File Manager, ${username}, goodbye!\n`);
-    process.exit();
+    process.exit(0);
   });
 };
