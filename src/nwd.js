@@ -1,12 +1,12 @@
 import { dirname, isAbsolute, resolve, join } from 'path';
 import { stat, readdir } from 'fs/promises';
-import { printCurrentDirectory } from './config.js';
+import { printCurrentDirectory, rootDirectory } from './config.js';
 
 export const onUp = () => {
   if (process.cwd() !== rootDirectory) {
     process.chdir(dirname(process.cwd()));
-    printCurrentDirectory();
   }
+  printCurrentDirectory();
 }
 
 export const onCd = async (data) => {
