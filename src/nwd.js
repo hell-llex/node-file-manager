@@ -35,11 +35,18 @@ export const onLs = async () => {
     const fileArray = await readdir(process.cwd());
     const fileInfoArray = await Promise.all(
       fileArray.map(async (file) => {
-        const stats = await lstat(join(process.cwd(), file));
-        return {
-          name: file,
-          type: stats.isDirectory() ? 'directory' : 'file'
-        };
+        try {
+          const stats = await lstat(join(process.cwd(), file));
+          return {
+            name: file,
+            type: stats.isDirectory() ? 'directory' : 'file'
+          };
+        } catch (error) {
+          return {
+            name: file,
+            type: 'unknown'
+          };
+        }
       })
     );
     fileInfoArray
